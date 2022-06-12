@@ -315,9 +315,13 @@ static void TraceBackwards(size_t size, const unsigned short* length_array,
   if (size == 0) return;
   for (;;) {
     ZOPFLI_APPEND_DATA(length_array[index], path, pathsize);
-    assert(length_array[index] <= index);
-    assert(length_array[index] <= ZOPFLI_MAX_MATCH);
-    assert(length_array[index] != 0);
+//  assert(length_array[index] <= index);
+//  assert(length_array[index] <= ZOPFLI_MAX_MATCH);
+//  assert(length_array[index] != 0);
+        if ((length_array[index] > index) ||
+             length_array[index] > ZOPFLI_MAX_MATCH ||
+             length_array[index] == 0)
+            return;
     index -= length_array[index];
     if (index == 0) break;
   }
